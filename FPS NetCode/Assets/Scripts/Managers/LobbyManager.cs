@@ -1,6 +1,7 @@
 using Steamworks;
 using Steamworks.Data;
 using System.Diagnostics.CodeAnalysis;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class LobbyManager : MonoBehaviour
 	public Lobby currentLobby;
 
 	public bool inLobby;
+	public bool isLobbyOwner;
 
 	public static LobbyManager Instance;
 
@@ -19,6 +21,8 @@ public class LobbyManager : MonoBehaviour
 	public GameObject lobbyMembers;
 	public GameObject steamFriends;
 	public GameObject invitationManager;
+
+	public TMP_Text currentLobbyTxt;
 
 	public int maxMembersOfLobby;
 
@@ -69,7 +73,11 @@ public class LobbyManager : MonoBehaviour
 		Debug.Log($"Entered lobby, Name: {lobby.Owner.Name} ({this.name})");
 
 		LobbyMembersManager.instance.UpdateMembersInLobbyList();
-		SteamP2PManager.instance.JoinNewP2PSesion(currentLobby);
+		SteamP2PManager.instance.JoinNewP2PSesion(lobby);
+
+		isLobbyOwner = currentLobby.IsOwnedBy(SteamClient.SteamId);
+
+		currentLobbyTxt.text = ($"Current lobby: {currentLobby.Owner.Id.ToString()} Owner: {isLobbyOwner}");
 	}
 
 

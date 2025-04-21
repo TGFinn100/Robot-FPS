@@ -15,12 +15,6 @@ public class PlayerSpawner : NetworkBehaviour
 		DontDestroyOnLoad(this.gameObject);
 	}
 
-	private void OnLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
-	{
-		Debug.Log($"Load Complete ({this.name})");
-		Spawn_ServerRpc();
-	}
-
 	public override void OnNetworkSpawn()
 	{
 		base.OnNetworkSpawn();

@@ -46,14 +46,14 @@ public class SteamP2PManager : NetworkBehaviour
 		//If client is not running and we own the lobby we will start as host
 		if (!NetworkManager.Singleton.IsClient && lobby.IsOwnedBy(SteamClient.SteamId))
 		{
-			Debug.Log($"Starting Host");
+			Debug.Log($"Starting Host ({this.name})");
 			HandleHostTransport(lobbyToJoin.Owner.Id);
 		}
 
 		//If client is not running and we are not the owner we will start as client
 		else if (!NetworkManager.Singleton.IsClient && !lobby.IsOwnedBy(SteamClient.SteamId))
 		{
-			Debug.Log($"Starting Client");
+			Debug.Log($"Starting Client ({this.name})");
 			HandleClientTransport(lobbyToJoin.Owner.Id);
 		}
 	}

@@ -1,4 +1,5 @@
 using Steamworks;
+using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,13 +11,14 @@ public class MainMenuManager : MonoBehaviour
 	public void Play()
 	{
 		if (LobbyManager.Instance.currentLobby.Id == 0)
-			Debug.LogWarning("Cant start game as lobby is invalid");
+			Debug.LogWarning($"Cant start game as lobby is invalid ({this.name})");
 
 		if(!LobbyManager.Instance.currentLobby.IsOwnedBy(SteamClient.SteamId))
-			Debug.LogWarning("Cant start game as you are not the lobby owner");
+			Debug.LogWarning($"Cant start game as you are not the lobby owner ({this.name})");
 
-		Debug.Log("Starting game, changing scene");
-		SceneManager.LoadScene(gameScene);
+		Debug.Log($"Starting game, changing scene ({this.name})");
+		//SceneManager.LoadScene(gameScene);
+		NetworkManager.Singleton.SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
 	}
 
 	public void LoadOut()

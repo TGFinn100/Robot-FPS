@@ -1,5 +1,8 @@
+using System;
 using Unity.Netcode;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerSpawner : NetworkBehaviour
 {
@@ -7,19 +10,28 @@ public class PlayerSpawner : NetworkBehaviour
 	private string scene = "MainGame";
 	private bool isStarted;
 
-	private void Start()
+	private void Awake()
 	{
-		//Spawn_ServerRpc();
+		DontDestroyOnLoad(this.gameObject);
 	}
 
-	private void OnConnectionEvent(NetworkManager arg1, ConnectionEventData arg2)
+	private void OnLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
 	{
+		Debug.Log($"Load Complete ({this.name})");
 		Spawn_ServerRpc();
 	}
 
 	public override void OnNetworkSpawn()
 	{
 		base.OnNetworkSpawn();
+
+		Debug.Log($"NetworkSpawned ({this.name})");
+		SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+	}
+
+	private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+	{
+		Debug.Log($"Load Complete ({this.name})");
 		Spawn_ServerRpc();
 	}
 

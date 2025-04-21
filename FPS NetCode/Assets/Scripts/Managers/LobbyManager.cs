@@ -52,13 +52,13 @@ public class LobbyManager : MonoBehaviour
 		steamFriends.SetActive(true);
 		invitationManager.SetActive(true);
 
-		Debug.Log($"Lobby created, Name: {lobby.Owner.Name}, {result.ToString()}");
+		Debug.Log($"Lobby created, Name: {lobby.Owner.Name}, {result.ToString()} ({this.name})");
 	}
 
 	//When someone invites us we create an invitation in the top left, the invitation care is a member card that we change to work
 	private void OnLobbyInvite(Friend friend, Lobby lobby)
 	{
-		Debug.Log($"Invite resieved from {friend.Name} to {lobby.Owner.Name} Lobby");
+		Debug.Log($"Invite resieved from {friend.Name} to {lobby.Owner.Name} Lobby ({this.name})");
 
 		InvitationsManager.instance.CreateInvitation(friend, lobby);
 	}
@@ -66,7 +66,7 @@ public class LobbyManager : MonoBehaviour
 	//When we enter a lobby we want to update the lobby member list and we want to conect to that lobbys asoiated owner
 	private void OnLobbyEntered(Lobby lobby)
 	{
-		Debug.Log($"Entered lobby, Name: {lobby.Owner.Name}");
+		Debug.Log($"Entered lobby, Name: {lobby.Owner.Name} ({this.name})");
 
 		LobbyMembersManager.instance.UpdateMembersInLobbyList();
 		SteamP2PManager.instance.JoinNewP2PSesion(currentLobby);
@@ -80,11 +80,11 @@ public class LobbyManager : MonoBehaviour
 	{
 		if(lobby.Id == 0)
 		{
-			Debug.LogError("Cant join lobby, it is invalid");
+			Debug.LogError($"Cant join lobby, it is invalid ({this.name})");
 			return;
 		}
 
-		Debug.Log("Trying to join lobby");
+		Debug.Log($"Trying to join lobby ({this.name})");
 		currentLobby.Leave();
 		currentLobby = lobby;
 		currentLobby.Join();
@@ -95,12 +95,12 @@ public class LobbyManager : MonoBehaviour
 	{
 		if (!currentLobby.IsOwnedBy(SteamClient.SteamId) && !dontRejoin)
 		{
-			Debug.Log("Trying to leave lobby");
+			Debug.Log($"Trying to leave lobby ({this.name})");
 			currentLobby.Leave();
 		}
 		else
 		{
-			Debug.Log("Trying to leave lobby");
+			Debug.Log($"Trying to leave lobby ({this.name})");
 			currentLobby.Leave();
 		}
 	}

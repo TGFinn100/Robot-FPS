@@ -15,15 +15,14 @@ public class MainMenuManager : NetworkBehaviour
 
 		if(!LobbyManager.Instance.currentLobby.IsOwnedBy(SteamClient.SteamId))
 			Debug.LogWarning($"Cant start game as you are not the lobby owner ({this.name})");
-
-		Debug.Log($"Starting game, changing scene ({this.name})");
 		//SceneManager.LoadScene(gameScene);
 		//NetworkManager.Singleton.SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
 
 
 
-		if (IsServer && !string.IsNullOrEmpty(gameScene))
+		if (IsHost && !string.IsNullOrEmpty(gameScene))
 		{
+			Debug.Log($"Starting game, changing scene ({this.name})");
 			var status = NetworkManager.SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
 			if (status != SceneEventProgressStatus.Started)
 			{

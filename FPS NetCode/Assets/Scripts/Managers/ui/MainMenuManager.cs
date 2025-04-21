@@ -17,10 +17,13 @@ public class MainMenuManager : NetworkBehaviour
 			Debug.LogWarning($"Cant start game as you are not the lobby owner ({this.name})");
 		//SceneManager.LoadScene(gameScene);
 		//NetworkManager.Singleton.SceneManager.LoadScene(gameScene, LoadSceneMode.Single);
+		ChanageSceneServerRPC();
+	}
 
-
-
-		if (IsHost && !string.IsNullOrEmpty(gameScene))
+	[ServerRpc]
+	public void ChanageSceneServerRPC()
+	{
+		if (IsServer && !string.IsNullOrEmpty(gameScene))
 		{
 			Debug.Log($"Starting game, changing scene ({this.name})");
 			var status = NetworkManager.SceneManager.LoadScene(gameScene, LoadSceneMode.Single);

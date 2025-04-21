@@ -62,7 +62,7 @@ public class LobbyManager : MonoBehaviour
 	//When someone invites us we create an invitation in the top left, the invitation care is a member card that we change to work
 	private void OnLobbyInvite(Friend friend, Lobby lobby)
 	{
-		Debug.Log($"Invite resieved from {friend.Name} to {lobby.Owner.Name} Lobby ({this.name})");
+		Debug.Log($"Invite recieved from {friend.Name} to {lobby.Owner.Name} Lobby ({this.name})");
 
 		InvitationsManager.instance.CreateInvitation(friend, lobby);
 	}

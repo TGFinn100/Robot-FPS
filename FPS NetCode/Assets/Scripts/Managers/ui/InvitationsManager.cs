@@ -7,7 +7,6 @@ public class InvitationsManager : MonoBehaviour
 {
 	//This script manages all of the inivitation functionality
 
-	private List<GameObject> invitations = new();
 	public FriendCard friendCardPrefab;
 
 	[Tooltip("The amount of thime the invitation will live befor being destroyed")]
